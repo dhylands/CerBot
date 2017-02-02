@@ -21,6 +21,33 @@
 #define MICROPY_HW_ENABLE_SPI3      (1)
 #define MICROPY_HW_ENABLE_CAN       (1)
 
+// HSE is 8MHz
+#define MICROPY_HW_CLK_PLLM (12)
+#define MICROPY_HW_CLK_PLLN (336)
+#define MICROPY_HW_CLK_PLLP (RCC_PLLP_DIV2)
+#define MICROPY_HW_CLK_PLLQ (7)
+#define MICROPY_HW_CLK_LAST_FREQ (1)
+
+// UART config
+#define MICROPY_HW_UART2_TX     (pin_A2)
+#define MICROPY_HW_UART2_RX     (pin_A3)
+#define MICROPY_HW_UART2_RTS    (pin_A1)
+#define MICROPY_HW_UART2_CTS    (pin_A0)
+
+#define MICROPY_HW_UART3_TX     (pin_B10)
+#define MICROPY_HW_UART3_RX     (pin_B11)
+
+// I2C busses
+#define MICROPY_HW_I2C1_NAME "X"
+#define MICROPY_HW_I2C1_SCL (pin_B6)
+#define MICROPY_HW_I2C1_SDA (pin_B7)
+
+// SPI busses
+#define MICROPY_HW_SPI1_SCK  (pin_B3)
+#define MICROPY_HW_SPI1_MISO (pin_B4)
+#define MICROPY_HW_SPI1_MOSI (pin_B5)
+
+
 // USRSW has no pullup or pulldown, and pressing the switch makes the input go low
 //#define MICROPY_HW_USRSW_PIN        (pin_B3)
 //#define MICROPY_HW_USRSW_PULL       (GPIO_PULLUP)
@@ -29,10 +56,8 @@
 
 // The CerBot has a single LED (on a gpio pin)
 #define MICROPY_HW_LED1             (pin_A14) // red
-#define MICROPY_HW_LED_OTYPE        (GPIO_MODE_OUTPUT_PP)
-#define MICROPY_HW_LED_ON(pin)      (pin->gpio->BSRRL = pin->pin_mask)
-#define MICROPY_HW_LED_OFF(pin)     (pin->gpio->BSRRH = pin->pin_mask)
-
+#define MICROPY_HW_LED_ON(pin)      (mp_hal_pin_high(pin))
+#define MICROPY_HW_LED_OFF(pin)     (mp_hal_pin_low(pin))
 // SD card detect switch
 #define MICROPY_HW_SDCARD_DETECT_PIN        (pin_B15)
 #define MICROPY_HW_SDCARD_DETECT_PULL       (GPIO_PULLUP)
